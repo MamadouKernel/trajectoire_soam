@@ -1,0 +1,187 @@
+{% extends "template.kmphtml.twig"%}
+{% block title %} Modifier l'Administrateur | Trajectoire {% endblock %}
+{% block contenu %}
+{% block chargement %}{% endblock %}
+
+<div class="min-height-200px">
+    <div class="page-header">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="title">
+                    <h4>Profile</h4>
+                </div>
+                <nav aria-label="breadcrumb" role="navigation">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Tableau de bord</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Profile</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 mb-30">
+            <div class="pd-20 card-box height-100-p">
+                <div class="profile-photo">
+                    <img src="../src/files/{{edit_admins.image}}" alt="" class="avatar-photo">
+                </div>
+                <h5 class="text-center h5 mb-0">{{edit_admins.NomprenomsAdmin}}</h5>
+                <p class="text-center text-muted font-20" style="font-weight:bold">{% if edit_admins.LevelAdmin == 0 %}ADMINISTRATEUR {% elseif edit_admins.LevelAdmin ==1 %} GESTIONNAIRE {% endif %}</p>
+                <div class="profile-info">
+                    <h5 class="mb-20 h5 text-blue"><u>Information {% if edit_admins.LevelAdmin == 0 %}de l'ADMINISTRATEUR {% elseif edit_admins.LevelAdmin ==1 %}du GESTIONNAIRE {% endif %}</u></h5>
+                    <ul>
+                        <li>
+                            <span>Email Address:</span>
+                            {{edit_admins.EmailAdmin}}
+                        </li>
+                        <li>
+                            <span>Téléphone:</span>
+                            {{edit_admins.PhoneAdmin}}
+                        </li>
+                        <li>
+                            <span>Pièce fournie:</span>
+                            {% if edit_admins.TypepieceAdmin == 0 %} CARTE NATIONAL D'IDENTITE(CNI){% elseif edit_admins.TypepieceAdmin ==1 %} PASSEPORT {% endif %}
+                        </li>
+                        <li>
+                            <span>Numéro de la pièce:</span>
+                            {{edit_admins.NumpieceAdmin}}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 mb-30">
+
+            {% if message == 'success' %}
+                <div class="alert alert-success" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <i class="fa fa-check fa-2x" style="font-size: 16"></i> {{ message_success }}
+                </div>
+            {% elseif message == 'echecc' %}
+                <div class="alert alert-danger" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <i class="fa fa-close fa-2x" style="font-size: 16"></i> {{ message_echec }}
+                </div>
+
+            {% elseif message == 'echec' %}
+
+                <div class="alert alert-danger" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <i class="fa fa-close fa-2x" style="font-size: 16"></i> {{ add_noexit }}
+                </div
+
+            {% endif %}
+            <hr>
+            <div class="card-box height-100-p overflow-hidden">
+                <div class="profile-tab height-100-p">
+                    <div class='container'>
+                        <form method='post' enctype="multipart/form-data">
+                            <br>
+                            <div class="row">
+                                <div class="col-md-6 offset-md-3">
+                                    <div class="mb-6">
+                                        <center>
+                                            <div class="fileupload fileupload-new" data-provides="fileupload">
+                                                <div class="fileupload-new thumbnail"
+                                                     style="width: 200px; height: 180px;">
+                                                    {% if edit_admins.image != 0 %}
+                                                        <img src="/src/files/{{edit_admins.image}}" alt=""/>
+                                                    {% elseif edit_admins.image !=1 %}
+                                                        <img src="/src/files/guest.png" alt=""/>
+                                                    {% endif %}
+                                                </div>
+                                                <div class="fileupload-preview fileupload-exists thumbnail"
+                                                     style="width: 200px; height: 180px; line-height: 20px;"></div>
+                                                <div>
+                                                    <span class="btn btn-file btn-primary"><span class="fileupload-new">Upload image</span><span
+                                                            class="fileupload-exists">Change</span>
+                                                        <input type="file" id="photo" name="photoadmin" value=""
+                                                               accept=".jpg,.png,.jpge,.gif"
+                                                               />
+                                                        <input type="hidden" name="current_image" value="{{edit_admins.image}}" />
+                                                    </span>
+                                                    <a href="#" class="btn btn-danger fileupload-exists"
+                                                       data-dismiss="fileupload">Supprimer</a>
+                                                </div>
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type='number' value='{{edit_admins.IdAdmin}}' hidden name='id_edit'>
+                            <div class='row'>
+                                <div class='col-12'>
+                                    <div class="form-group">
+                                        <label>Nom et Prénom</label>
+                                        <input class="form-control"  value='{{edit_admins.NomprenomsAdmin}}' name='n' pattern="[a-zA-Z\s]+" type="text" placeholder="Entrez le nom svp!">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='row'>
+                                <div class='col-6'>
+                                    <div class="form-group">
+                                        <label>Téléphone</label>
+                                        <input class="form-control"  name='tel' value='{{edit_admins.PhoneAdmin}}' pattern="[0-9]+" type="tel" placeholder="Entrez le numéro de téléphone!">
+                                    </div>
+                                </div>
+                                <div class='col-6'>
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        <input class="form-control"  name='email' value='{{edit_admins.EmailAdmin}}'  type="email" placeholder="Entrez l'adresse mail!">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='row'>
+                                <div class='col-6'>
+                                    <div class="form-group">
+                                        <label>Mot de passe</label>
+                                        <input class="form-control" pattern="[a-zA-Z0-9\s]+" name='mdp' type="password" placeholder="Entrez le mot de passe!" value='{{edit_admins.PasswordAdmin}}' >
+                                    </div>
+                                </div>
+                                <div class='col-6'>
+                                    <div class="form-group">
+                                        <label for="input-8">Choisir le rôle</label>
+                                        <div class="form-group">
+                                            <select required="required" class="form-control form-control-rounded" name="role">
+                                                <option selected value='{{edit_admins.LevelAdmin}}' >{% if edit_admins.LevelAdmin == 0 %}ADMINISTRATEUR {% elseif edit_admins.LevelAdmin ==1 %} GESTIONNAIRE {% endif %}</option>
+                                                <option value="0">Administrateur</option>
+                                                <option value="1">Gestionnaire</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='row'>
+                                <div class='col-6'>
+                                    <div class="form-group">
+                                        <label for="input-8">Piece d'identite</label>
+                                        <div class="form-group">
+                                            <select   class="form-control form-control-rounded" name="tpiece">
+                                                <option selected value='{{edit_admins.TypepieceAdmin}}'>{% if edit_admins.TypepieceAdmin == 0 %} CARTE NATIONAL D'IDENTITE(CNI){% elseif edit_admins.TypepieceAdmin ==1 %} PASSEPORT {% endif %}</option>
+                                                <option value="0">CARTE NATIONAL D'IDENTITE(CNI)</option>
+                                                <option value="1">PASSEPORT</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='col-6'>
+                                    <div class="form-group">
+                                        <label>Numéro de la pièce d'identité</label>
+                                        <input class="form-control" name='nump' value='{{edit_admins. NumpieceAdmin}}'  pattern="[a-zA-Z0-9\s]+" type="text" placeholder="Entrez le numéro de la pièce d'identité!">
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" name='modifier' class="btn btn-success btn-lg btn-block"> Enregistrer</button>
+                            <br>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,150 @@
+{% extends "template.kmphtml.twig" %}
+{% block title %}Ajouter un Admin | Trajectoire{% endblock %}
+{% block contenu %}
+{% block chargement %}{% endblock %}
+
+<div class="pd-20 card-box mb-30">
+    <div class="clearfix">
+        <div class="pull-left">
+            <h4 class="text-blue h4">Ajouter un Créancier</h4>
+        </div>
+    </div>
+    <hr>
+    {% if message == 'success' %}
+        <div class="alert alert-success" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+            <i class="fa fa-check fa-2x" style="font-size: 16"></i> {{ message_success }}
+        </div>
+    {% elseif message == 'echecc' %}
+        <div class="alert alert-danger" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+            <i class="fa fa-close fa-2x" style="font-size: 16"></i> {{ message_echec }}
+        </div>
+
+    {% elseif message == 'echec' %}
+
+        <div class="alert alert-danger" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+            <i class="fa fa-close fa-2x" style="font-size: 16"></i> {{ add_exit }}
+        </div
+
+    {% endif %}
+    <hr>
+    <form method='post' enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="mb-6">
+                    <center>
+                        <div class="fileupload fileupload-new" data-provides="fileupload">
+                            <div class="fileupload-new thumbnail"
+                                 style="width: 200px; height: 180px;">
+                                <img src="/src/files/guest.png" alt=""/></div>
+                            <div class="fileupload-preview fileupload-exists thumbnail"
+                                 style="width: 200px; height: 180px; line-height: 20px;"></div>
+                            <div>
+                                <span class="btn btn-file btn-primary"><span class="fileupload-new">Upload image</span><span
+                                        class="fileupload-exists">Change</span>
+                                    <input type="file" id="photo" name="photoadmin" value=""
+                                           accept=".jpg,.png,.jpge,.gif"
+                                           required="required"/></span>
+                                <a href="#" class="btn btn-danger fileupload-exists"
+                                   data-dismiss="fileupload">Supprimer</a>
+                            </div>
+                    </center>
+                </div>
+            </div>
+        </div>
+        <div class='row'>
+            <div class='col-6'>
+                <div class="form-group">
+                    <label>Nom</label>
+                    <input class="form-control" required='required' name='n' pattern="[a-zA-Z\s]+" type="text" placeholder="Entrez le nom svp!">
+                </div>
+            </div>
+            <div class='col-6'>
+                <div class="form-group">
+                    <label>Prénom</label>
+                    <input class="form-control" required='required' name='p' pattern="[a-zA-Z\s]+"  type="text" placeholder='Entrez le prénom'>
+                </div>
+            </div>
+        </div>
+        <div class='row'>
+            <div class='col-6'>
+                <div class="form-group">
+                    <label>Téléphone</label>
+                    <input class="form-control" required='required' name='tel' pattern="[0-9]+" type="tel" placeholder="Entrez le numéro de téléphone!">
+                </div>
+            </div>
+            <div class='col-6'>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input class="form-control" required='required' name='email'  type="email" placeholder="Entrez l'adresse mail!">
+                </div>
+            </div>
+        </div>
+        <div class='row'>
+            <div class='col-6'>
+                <div class="form-group">
+                    <label>Résidence</label>
+                    <input class="form-control" pattern="[a-zA-Z0-9\s]+" name='resid' type="text" placeholder="Entrez le mot de passe!">
+                </div>
+            </div>
+            <div class='col-6'>
+                <div class="form-group">
+                    <label>Proféssion</label>
+                    <input class="form-control" pattern="[a-zA-Z0-9\s]+" name='prof' type="text" placeholder="Entrez le mot de passe!">
+                </div>
+            </div>
+        </div>
+        <div class='row'>
+            <div class='col-6'>
+                <div class="form-group">
+                    <label for="input-8">Piece d'identite</label>
+                    <div class="form-group">
+                        <select required="required" class="form-control form-control-rounded" name="tpiece">
+                            <option selected></option>
+                            <option value="0">Carte Nationale d'identite</option>
+                            <option value="1">Passeport</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class='col-6'>
+                <div class="form-group">
+                    <label>Numéro de la pièce d'identité</label>
+                    <input class="form-control" name='nump' required='required' pattern="[a-zA-Z0-9\s]+" type="text" placeholder="Entrez le numéro de la pièce d'identité!">
+                </div>
+            </div>
+        </div>
+        <div class='row'>
+            <div class='col-6'>
+                <div class="form-group">
+                    <label>Recto de la pièce d'identité</label>
+                    <input class="form-control"  name='recto' type="file" placeholder="Entrez le mot de passe!">
+                </div>
+            </div>
+            <div class='col-6'>
+                <div class="form-group">
+                    <label>Verso de la pièce d'identité</label>
+                    <input class="form-control"  name='verso' type="file" placeholder="Entrez le mot de passe!">
+                </div>
+            </div>
+        </div>
+        <div class='row'>
+            <div class='col-12'>
+                <div class="form-group">
+                    <label>Révenu Mensuel</label>
+                    <input class="form-control" pattern="[0-9]+" name='revm' type="text" placeholder="Entrez le mot de passe!">
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" name='enregistre' class="btn btn-success btn-lg btn-block"> Enregistrer</button>
+    </form>
+</div>
+
+
+{% endblock %}

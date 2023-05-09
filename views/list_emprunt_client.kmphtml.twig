@@ -1,0 +1,36 @@
+{% extends "template.kmphtml.twig" %}
+{% block title %}Liste de remboursement | Trajectoire{% endblock %}
+{% block contenu %}
+{% block chargement %}{% endblock %}
+   
+<!-- Export Datatable start -->
+	<div class="card-box mb-30">
+		<div class="pd-20">
+			<h4 class="text-blue h4">Liste de remboursement de Mme/Mlle/M {{select_repayment[0].NomprenomsClient}} </h4>
+		</div>
+		<div class="pb-20">
+			<table class=" table stripe data-table-export hover wrap">
+				<thead>
+					<tr>
+						<th class="table-plus datatable-nosort">Nom & Prénom</th>
+						<th>Type de Crédit</th>
+						<th>Montant emprunté</th>
+						<th>Status</th>
+					</tr>
+				</thead>
+                <tbody>
+					{% for select_emprunt in select_emprunts %}		
+					<tr>
+						<td class="table-plus">{{select_emprunt.NomprenomsClient}}</td>
+						<td>{{select_emprunt.NomType}}</td>
+						<td>{{select_emprunt.MontantEmprunt}}</td>
+						<td>{% if select_emprunt.StatusEmprunt == 0 %} <button class="btn btn-success"> Soldé</button> {% elseif select_emprunt.StatusEmprunt == 1 %} <button class="btn btn-danger"> En cour</button> {% endif %}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+<!-- Export Datatable End -->
+
+{% endblock %}

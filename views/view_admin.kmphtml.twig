@@ -1,0 +1,70 @@
+{% extends "template.kmphtml.twig" %}
+{% block title %}Liste des Administrateur et Gestionnaire | Trajectoire{% endblock %}
+{% block contenu %}
+{% block chargement %}{% endblock %}
+
+<!-- Simple Datatable start -->
+<div class="card-box mb-30">
+    <hr>
+    {% if message == 'success' %}
+        <div class="alert alert-success" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+            <i class="fa fa-check fa-2x" style="font-size: 16"></i> {{ message_success }}
+        </div>
+    {% elseif message == 'echec' %}
+        <div class="alert alert-danger" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+            <i class="fa fa-close fa-2x" style="font-size: 16"></i> {{ message_echec }}
+        </div>
+
+    {% endif %}
+    <hr>
+    <div class="pd-20">
+        <h4 class="text-blue h4">Table des Administrateurs et Gestionnaires</h4>
+    </div>
+    <div class="pb-20 table-responsive">
+        <table class="data-table table stripe hover nowrap">
+            <thead>
+                <tr>
+                    <th>Nom Prénoms</th>
+                    <th>Email</th>
+                    <th>Pièce Id</th>
+                    <th>N° de la Pièce</th>
+                    <th>Téléphone</th>
+                    <th>Rôle</th>
+                    <th>Photo</th>
+                    <th class="datatable-nosort">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for select_admint in select_adminst %}
+                    <tr>
+                        <td>{{select_admint.NomprenomsAdmin}}</td>
+                        <td>{{select_admint.EmailAdmin}}</td>
+                        <td> {% if select_admint.TypepieceAdmin == 0 %} CNI {%elseif select_admint.TypepieceAdmin != 0 %} Passeport {% endif %}</td> 
+                        <td>{{select_admint.NumpieceAdmin}}</td>
+                        <td>{{select_admint.PhoneAdmin}}</td>
+                        <td>{% if select_admint.LevelAdmin == 0 %} Administrateur {%elseif select_admint.LevelAdmin != 0 %} Gestionnaire {% endif %}</td>
+                        <td><img src='../src/files/{{select_admint.image}}' width='50%'></td>
+                        <td>
+                            <div class="dropdown">
+                                <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                                    <i class="dw dw-more"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                    <a class="dropdown-item" href="edit_admin?edit={{select_admint.IdAdmin}}"><i class="dw dw-edit2"></i> Edit</a>
+                                    <a class="dropdown-item" href="?del={{select_admint.IdAdmin}}"><i class="dw dw-delete-3"></i> Delete</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- Simple Datatable End -->
+
+{% endblock %}

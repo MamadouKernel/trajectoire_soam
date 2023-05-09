@@ -1,0 +1,92 @@
+{% extends "template.kmphtml.twig" %}
+{% block title %}Ajouter un Admin | Trajectoire{% endblock %}
+{% block contenu %}
+{% block chargement %}{% endblock %}
+
+<div class="pd-20 card-box mb-30">
+    <div class="clearfix">
+        <div class="pull-left">
+            <h4 class="text-blue h4">Faire une Démande de Crédit</h4>
+        </div>
+    </div>
+    <hr>
+    {% if message == 'success' %}
+        <div class="alert alert-success" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+            <i class="fa fa-check fa-2x" style="font-size: 16"></i> {{ message_success }}
+        </div>
+    {% elseif message == 'echecc' %}
+        <div class="alert alert-danger" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+            <i class="fa fa-close fa-2x" style="font-size: 16"></i> {{ message_echec }}
+        </div>
+
+    {% elseif message == 'echec' %}
+
+        <div class="alert alert-danger" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+            <i class="fa fa-close fa-2x" style="font-size: 16"></i> {{ add_exit }}
+        </div
+
+    {% endif %}
+    <hr>
+    <form method='post' enctype="multipart/form-data">
+        
+        <div class='row'>
+            <div class='col-6'>
+                <div class="form-group">
+                    <label for="input-8">Créancier</label>
+                    <div class="form-group">
+                        <select required="required" class="form-control form-control-rounded" name="creancier">
+                            <option selected></option>
+                            {% for select_creancier in select_creanciers %}
+                            <option value="{{select_creancier.IdClient}}">{{select_creancier.NomprenomsClient}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class='col-6'>
+                <div class="form-group">
+                    <label for="input-8">Type d'Opération</label>
+                    <div class="form-group">
+                        <select required="required" class="form-control form-control-rounded" name="typope">
+                            <option selected></option>
+                            {% for select_type in select_types %}
+                            <option value="{{select_type.IdType}}">{{select_type.NomType}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class='row'>
+            <div class='col-4'>
+                <div class="form-group">
+                    <label>Montant</label>
+                    <input class="form-control" required='required' name='montant' pattern="[0-9]+" type="text" placeholder="Entrez le montant du crédit svp!">
+                </div>
+            </div>
+            <div class='col-4'>
+                <div class="form-group">
+                    <label>Date d'accord de l'emprunt</label>
+                    <input class="form-control" required='required' name='dateget'  type="date" >
+                </div>
+            </div>
+            <div class='col-4'>
+                <div class="form-group">
+                    <label>Date de fin du Rembourssement</label>
+                    <input class="form-control"  name='dategive' type="date">
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" name='enregistre' class="btn btn-success btn-lg btn-block"> Enregistrer</button>
+    </form>
+</div>
+
+
+{% endblock %}

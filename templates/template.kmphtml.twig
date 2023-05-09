@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Basic Page Info -->
+    <meta charset="utf-8">
+    <title>{% block title %}{% endblock %}</title>
+
+    <!-- Site favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/public/vendors/logo/t.jpg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/public/vendors/logo/t.jpg">
+    <link rel="icon" type="image/png" sizes="16x16" href="/public/vendors/logo/t.jpg">
+
+    <!-- Mobile Specific Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="/public/vendors/styles/core.css">
+    <link rel="stylesheet" type="text/css" href="/public/vendors/styles/icon-font.min.css">
+    <link rel="stylesheet" type="text/css" href="/public/src/plugins/datatables/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="/public/src/plugins/datatables/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="/public/vendors/styles/style.css">
+    {#pour le profile#}
+    <link rel="stylesheet" type="text/css" href="/public/bootstrap-fileupload/bootstrap-fileupload.min.css">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-119386393-1');
+    </script>
+</head>
+<body>
+{% block chargement %}
+    <div class="pre-loader">
+        <div class="pre-loader-box">
+            <center>
+                <div class="loader-logo"><img src="/public/vendors/logo/t.jpg" style="border-radius: 15% !important" width="25%" height="25%" alt=""></div>
+            </center>
+            <div class='loader-progress' id="progress_div">
+                <div class='bar' id='bar1'></div>
+            </div>
+            <div class='percent' id='percent1'>0%</div>
+            <div class="loading-text">
+                Trajectoire By SOAM...
+            </div>
+        </div>
+    </div>
+{% endblock %}
+<div class="header">
+    <div class="header-left">
+        <div class="menu-icon dw dw-menu"></div>
+        <div class="search-toggle-icon dw dw-search2" data-toggle="header_search"></div>
+        <div class="header-search">
+            <form>
+                <div class="form-group mb-0">
+                    <marquee><div class="alert alert-success">TRAJECTOIRE est un produit de SOAM</div></marquee>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="header-right">
+        <div class="dashboard-setting user-notification">
+            <div class="dropdown">
+                <a class="dropdown-toggle no-arrow" href="javascript:;" data-toggle="right-sidebar">
+                    <i class="dw dw-settings2"></i>
+                </a>
+            </div>
+        </div>
+        <div class="user-info-dropdown">
+            <div class="dropdown">
+                <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                    <span class="user-icon">
+                        {% if log_connect.image != 0 %}
+                            <img src="/src/files/{{log_connect.image}}" width='150%' alt="">
+                        {% elseif log_connect.image != 1 %}
+                            <img src="/src/files/guest.png" alt="">
+                        {% endif %}
+                    </span>
+                    <span class="user-name">{{ log_connect.NomprenomsAdmin }}</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                    <a class="dropdown-item" href="#"><i class="dw dw-user1"></i>{{ log_connect.NomprenomsAdmin }}</a>
+                    <a class="dropdown-item" href="#"><i class="dw dw-phone-call"></i>{{ log_connect.PhoneAdmin }}</a>
+                    <a class="dropdown-item" href="#"><i class="dw dw-email"></i>{{ log_connect.EmailAdmin }}</a>
+                    <a class="dropdown-item" href="/index.php?logout=true"><i class="dw dw-logout"></i>Déconnecter</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="right-sidebar">
+    <div class="sidebar-title">
+        <h3 class="weight-600 font-16 text-blue">
+            paramètres de disposition
+            <span class="btn-block font-weight-400 font-12">paramètres de l'interface utilisateur</span>
+        </h3>
+        <div class="close-sidebar" data-toggle="right-sidebar-close">
+            <i class="icon-copy ion-close-round"></i>
+        </div>
+    </div>
+    <div class="right-sidebar-body customscroll">
+        <div class="right-sidebar-body-content">
+            <h4 class="weight-600 font-18 pb-10">arrière-plan de l'en-tête</h4>
+            <div class="sidebar-btn-group pb-30 mb-10">
+                <a href="javascript:void(0);" class="btn btn-outline-primary header-white active">Blanc</a>
+                <a href="javascript:void(0);" class="btn btn-outline-primary header-dark">noir</a>
+            </div>
+
+            <h4 class="weight-600 font-18 pb-10">Arrière-plan de la Barre Latérale</h4>
+            <div class="sidebar-btn-group pb-30 mb-10">
+                <a href="javascript:void(0);" class="btn btn-outline-primary sidebar-light ">Blanc</a>
+                <a href="javascript:void(0);" class="btn btn-outline-primary sidebar-dark active">noir</a>
+            </div>
+
+            <h4 class="weight-600 font-18 pb-10">Icône de Menu Déroulant</h4>
+            <div class="sidebar-radio-group pb-10 mb-10">
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="sidebaricon-1" name="menu-dropdown-icon" class="custom-control-input" value="icon-style-1" checked="">
+                    <label class="custom-control-label" for="sidebaricon-1"><i class="fa fa-angle-down"></i></label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="sidebaricon-2" name="menu-dropdown-icon" class="custom-control-input" value="icon-style-2">
+                    <label class="custom-control-label" for="sidebaricon-2"><i class="ion-plus-round"></i></label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="sidebaricon-3" name="menu-dropdown-icon" class="custom-control-input" value="icon-style-3">
+                    <label class="custom-control-label" for="sidebaricon-3"><i class="fa fa-angle-double-right"></i></label>
+                </div>
+            </div>
+
+            <h4 class="weight-600 font-18 pb-10">Icône de liste de menus</h4>
+            <div class="sidebar-radio-group pb-30 mb-10">
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="sidebariconlist-1" name="menu-list-icon" class="custom-control-input" value="icon-list-style-1" checked="">
+                    <label class="custom-control-label" for="sidebariconlist-1"><i class="ion-minus-round"></i></label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="sidebariconlist-2" name="menu-list-icon" class="custom-control-input" value="icon-list-style-2">
+                    <label class="custom-control-label" for="sidebariconlist-2"><i class="fa fa-circle-o" aria-hidden="true"></i></label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="sidebariconlist-3" name="menu-list-icon" class="custom-control-input" value="icon-list-style-3">
+                    <label class="custom-control-label" for="sidebariconlist-3"><i class="dw dw-check"></i></label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="sidebariconlist-4" name="menu-list-icon" class="custom-control-input" value="icon-list-style-4" checked="">
+                    <label class="custom-control-label" for="sidebariconlist-4"><i class="icon-copy dw dw-next-2"></i></label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="sidebariconlist-5" name="menu-list-icon" class="custom-control-input" value="icon-list-style-5">
+                    <label class="custom-control-label" for="sidebariconlist-5"><i class="dw dw-fast-forward-1"></i></label>
+                </div>
+                <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" id="sidebariconlist-6" name="menu-list-icon" class="custom-control-input" value="icon-list-style-6">
+                    <label class="custom-control-label" for="sidebariconlist-6"><i class="dw dw-next"></i></label>
+                </div>
+            </div>
+
+            <div class="reset-options pt-30 text-center">
+                <button class="btn btn-danger" id="reset-settings">Paramètres par Défaut</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="left-side-bar">
+    <div class="brand-logo">
+        <a href="dashboard">
+            <img src="/public/vendors/logo/t.jpg" alt="" width="32%" class="dark-logo">
+            <img src="/public/vendors/logo/t.jpg" width="30%" alt="" class="light-logo" style="border-radius: 50%">
+            <b>TRAJECTOIRE</b>
+        </a>
+        <div class="close-sidebar" data-toggle="left-sidebar-close">
+            <i class="ion-close-round"></i>
+        </div>
+    </div>
+    <div class="menu-block customscroll">
+        <div class="sidebar-menu">
+            <ul id="accordion-menu">
+                <a href="dashboard" class="dropdown-toggle">
+                    <span class="micon dw dw-menu"></span><b style="font-weight: bold !important; font-size: 20px !important " class="">Tableau de Bord</b>
+                </a>
+                {% if log_connect.LevelAdmin == 0 %}
+                    <li class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle">
+                            <span class="micon dw dw-user1"></span> <span class="mtext">ADMINISTRATEURS</span>
+                        </a>
+                        <ul class="submenu">
+                            <li><a href="add_admin">Ajouter</a></li>
+                            <li><a href="view_admin">Voir</a></li>
+                        </ul>
+                    </li>
+                {% endif %}
+                <li class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon dw dw-agenda"></span><span class="mtext">CREANCIERS</span>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="add_creancier">Ajouter</a></li>
+                        <li><a href="view_creancier">Voir</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon dw dw-exchange"></span><span class="mtext"> OPERATIONS </span>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="type_operation">Type d'Opération</a></li>
+                        <li><a href="ask_credit">Démande de crédit</a></li>
+                        <li><a href="view_ask">Crédit Accordé</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <div class="dropdown-divider"></div>
+                </li>
+
+                <li>
+                    <a href="/index.php?logout=true" style='background-color: red !important' class="dropdown-toggle no-arrow">
+                        <span class="micon dw dw-logout"></span>
+                        <span class="mtext">Déconnecter</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="mobile-menu-overlay"></div>
+
+<div class="main-container">
+    <div class="pd-ltr-20">
+    {% block contenu %}{% endblock %}
+    <div class="footer-wrap pd-20 mb-20 card-box">
+        Copyright © <script>document.write(new Date().getFullYear());</script> Tous droits réservés | Trajectoire by <a href="https://www.so-am.org" target="_blank">SOAM</a>
+    </div>
+</div>
+</div>
+<!-- js -->
+<script src="/public/vendors/scripts/core.js"></script>
+<script src="/public/vendors/scripts/script.min.js"></script>
+<script src="/public/vendors/scripts/process.js"></script>
+<script src="/public/vendors/scripts/layout-settings.js"></script>
+<script src="/public/src/plugins/datatables/js/jquery.dataTables.min.js"></script>
+<script src="/public/src/plugins/datatables/js/dataTables.bootstrap4.min.js"></script>
+<script src="/public/src/plugins/datatables/js/dataTables.responsive.min.js"></script>
+<script src="/public/src/plugins/datatables/js/responsive.bootstrap4.min.js"></script>
+<!-- buttons for Export datatable -->
+<script src="/public/src/plugins/datatables/js/dataTables.buttons.min.js"></script>
+<script src="/public/src/plugins/datatables/js/buttons.bootstrap4.min.js"></script>
+<script src="/public/src/plugins/datatables/js/buttons.print.min.js"></script>
+<script src="/public/src/plugins/datatables/js/buttons.html5.min.js"></script>
+<script src="/public/src/plugins/datatables/js/buttons.flash.min.js"></script>
+<script src="/public/src/plugins/datatables/js/pdfmake.min.js"></script>
+<script src="/public/src/plugins/datatables/js/vfs_fonts.js"></script>
+<!-- Datatable Setting js -->
+<script src="/public/vendors/scripts/datatable-setting.js"></script>
+{#profile#}
+<script type="text/javascript" src="/public/bootstrap-fileupload/bootstrap-fileupload.js"></script>
+</body>
+</html>

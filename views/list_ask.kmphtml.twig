@@ -1,0 +1,50 @@
+{% extends "template.kmphtml.twig" %}
+{% block title %}Liste de remboursement | Trajectoire{% endblock %}
+{% block contenu %}
+{% block chargement %}{% endblock %}
+
+    
+<!-- Export Datatable start -->
+	<div class="card-box mb-30">
+		<div class="pd-20">
+			<h4 class="text-blue h4">Liste de remboursement de Mme/Mlle/M {{select_repayment[0].NomprenomsClient}} </h4>
+		</div>
+		{% if select_repayment == 0 %}
+            <div class="alert alert-danger" role="alert">
+            	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            		<span aria-hidden="true">&times;</span></button>
+                <i class="fa fa-check fa-2x" style="font-size: 16"></i> {{message_erreur}}
+            </div>
+    	{% endif %}	
+		<div class="pb-20">
+			<table class=" table stripe data-table-export hover wrap">
+				<thead>
+					<tr>
+						<th class="table-plus datatable-nosort">Nom & Prénom</th>
+						<th>Type de Crédit</th>
+						<th>Montant emprunté</th>
+						<th>Montant versé</th>
+						<th>Montant restant</th>
+						<th>Date du paiement</th>
+						<th>Date de fin du paiement</th>
+					</tr>
+				</thead>
+                <tbody>
+					{% for select_repayments in select_repayment %}
+							
+					<tr>
+						<td class="table-plus">{{select_repayments.NomprenomsClient}}</td>
+						<td>{{select_repayments.NomType}}</td>
+						<td>{{select_repayments.MontantEmprunt}} FCFA</td>
+						<td>{{select_repayments.MontantRembours}} FCFA</td>
+						<td>{% if select_repayments.MontantRestant == 0 %}Soldé {% elseif select_repayments.MontantRestant !=0 %} {{select_repayments.MontantRestant}} FCFA{% endif %}</td>
+						<td>{{select_repayments.DateRembours}}</td>
+						<td>{{select_repayments.DategiveEmprunt}}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+<!-- Export Datatable End -->
+{% endblock %}

@@ -1,0 +1,88 @@
+{# empty Twig template #}
+{% extends "template_conn.kmphtml.twig" %}
+{% block title %}CONNEXION | TRAJECTOIRE {% endblock %}
+{% block contenu %}
+
+    <div class="login-wrap d-flex align-items-center flex-wrap justify-content-center">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 col-lg-7">
+                    <img src="public/vendors/images/01.png" alt="">
+                </div>
+                <div class="col-md-6 col-lg-5">
+                    <hr>
+                    {% if message == 'success' %}
+                        <div class="alert alert-success" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                            <i class="fa fa-check fa-2x" style="font-size: 14"></i> {{ message_connexion }}
+                        </div>
+                        <script>
+                            setTimeout(function () {
+                                window.location.href = '/dashboard';
+                            }, 500)
+                        </script>
+                    {% elseif message == 'echec' %}
+                        <div class="alert alert-danger" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                            <i class="fa fa-close fa-2x" style="font-size: 14"></i> {{ message_err_connexion }}
+                        </div>
+                    {% endif %}
+                    <hr>
+                    <div class="login-box bg-white box-shadow border-radius-10">
+                        <div class="login-title">
+                            <h2 class="text-center text-primary">Ouvrir une session dans Trajectoire</h2>
+                        </div>
+                        <form method="post">
+                            <div class="select-role">
+                                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                    <label class="btn active">
+                                        <input class="form-check-input" checked='' type="radio" name="options" id="inlineRadio1" value="Administrateur">
+                                        <div class="icon"><img src="public/vendors/images/briefcase.svg" class="svg" alt=""></div>
+                                        <span>Administrateur </span>
+                                    </label>
+                                    <label class="btn">
+                                        <input class="form-check-input" type="radio" name="options" id="inlineRadio1" value="Gestionnaire">
+                                        <div class="icon"><img src="public/vendors/images/person.svg" class="svg" alt=""></div>
+                                        <span>Gestionnaire </span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="input-group custom">
+                                <input type="text" class="form-control form-control-lg" required="required" name="email" placeholder="kernel0748@gmail.com">
+                                <div class="input-group-append custom">
+                                    <span class="input-group-text"><i class="icon-copy dw dw-user1"></i></span>
+                                </div>
+                            </div>
+                            <div class="input-group custom">
+                                <input type="password" class="form-control form-control-lg" name="mdp" required="required" placeholder="**********">
+                                <div class="input-group-append custom">
+                                    <span class="input-group-text"><i class="dw dw-padlock1"></i></span>
+                                </div>
+                            </div>
+                            <div class="row pb-30">
+                                <div class="col-6">
+                                </div>
+                                <div class="col-6">
+                                    <div class="forgot-password"><a href="#">Mot de passe oublié</a></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="input-group mb-0">
+                                        <!--
+                                                use code for form submit
+                                                <input class="btn btn-primary btn-lg btn-block" type="submit" value="Sign In">
+                                        -->
+                                        <button class="btn btn-primary btn-lg btn-block" type="submit" name="log">Je me connecte</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

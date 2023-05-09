@@ -1,0 +1,62 @@
+{% extends "template.kmphtml.twig" %}
+{% block title %}Type d'Opération | Trajectoire{% endblock %}
+{% block contenu %}
+{% block chargement %}{% endblock %}
+
+<div class="pd-20 card-box mb-30">
+    <div class="clearfix">
+        <div class="pull-left">
+            <h4 class="text-blue h4">Modifier une Opération</h4>
+        </div>
+    </div>
+    <hr>
+    {% if message == 'success' %}
+        <div class="alert alert-success" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+            <i class="fa fa-check fa-2x" style="font-size: 16"></i> {{ message_success }}
+        </div>
+        <script>
+            setTimeout(function () {
+                window.location.href = 'http://trajectoire.com/type_operation';
+                    }, 400)
+        </script>
+    {% elseif message == 'echecc' %}
+        <div class="alert alert-danger" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+            <i class="fa fa-close fa-2x" style="font-size: 16"></i> {{ message_echec }}
+        </div>
+
+    {% elseif message == 'echec' %}
+
+        <div class="alert alert-danger" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+            <i class="fa fa-close fa-2x" style="font-size: 16"></i> {{ add_exit }}
+        </div
+
+    {% endif %}
+    <hr>
+    <form method='post' enctype="multipart/form-data">
+        <input class="form-control" required='required' value='{{type_op[0].IdType}}' hidden name='id_edit'  type="number">
+        <div class='row'>
+            <div class='col-6'>
+                <div class="form-group">
+                    <label>Type d'Opération</label>
+                    <input class="form-control" required='required' value='{{type_op[0].NomType}}' name='nomtypeope'  type="text" placeholder="Entrez le nom svp!">
+                </div>
+            </div>
+            <div class='col-6'>
+                <div class="form-group">
+                    <label>Descriptions</label>
+                    <textarea class="form-control" required='required' name='descr'  placeholder="Entrez la description de l'opération">{{type_op[0].DescType}}</textarea>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" name='modifier' class="btn btn-success btn-lg btn-block"> Enregistrer</button>
+    </form>
+</div>
+
+{% endblock %}

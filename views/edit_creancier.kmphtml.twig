@@ -1,0 +1,228 @@
+{% extends "template.kmphtml.twig"%}
+{% block title %} Modifier le Créancier | Trajectoire {% endblock %}
+{% block contenu %}
+{% block chargement %}{% endblock %}
+
+<div class="min-height-200px">
+    <div class="page-header">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="title">
+                    <h4>Profile</h4>
+                </div>
+                <nav aria-label="breadcrumb" role="navigation">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Tableau de bord</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Profile</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 mb-30">
+            <div class="pd-20 card-box height-100-p">
+                <div class="profile-photo ">
+                    {% if edit_client[0].PhotoClient != 0 %}
+                        <img src="/src/files/{{edit_client[0].PhotoClient}}"  width='60%' alt="" class="avatar-photo" alt=""/>
+                    {% elseif edit_client[0].PhotoClient !=1 %}
+                        <img src="/src/files/guest.png" alt=""  width='60%' alt="" class="avatar-photo"/>
+                    {% endif %}
+                </div>
+                <h5 class="text-center h5 mb-0">{{edit_client[0].NomprenomsClient}}</h5>
+                <p class="text-center text-muted font-14">{{edit_client[0].ProfessionClient}}</p>
+                <div class="profile-info">
+                    <h5 class="mb-20 h5 text-blue"><u>Information du Créancier</u></h5>
+                    <ul>
+                        <li>
+                            <span>Email Address:</span>
+                            {{edit_client[0].EmailClient}}
+                        </li>
+                        <li>
+                            <span>Téléphone:</span>
+                            {{edit_client[0].PhoneClient}}
+                        </li>
+                        <li>
+                            <span>Résidence:</span>
+                           {{edit_client[0].ResidenceClient}}
+                        </li>
+                        <li>
+                            <span>Profession:</span>
+                            {{edit_client[0].ProfessionClient}}
+                        </li>
+                        <li>
+                            <span>Type de la pièce:</span>
+                            {% if edit_client[0].TypepieceClient == 0 %}CARTE NATIONAL D'IDENTITE{% elseif edit_client[0].TypepieceClient == 1 %}PASSEPORT{% endif %}
+                        </li>
+                        <li>
+                            <span>Numéro de la pièce:</span>
+                            {{edit_client[0].IdentiteClient}}
+                        </li>
+                        <li>
+                            <span>Révenu Moyen:</span>
+                            {{edit_client[0].RevenumoyenClient}}<sup>FCFA</sup>
+                        </li>
+                        <li>
+                            <span>Enregistreur:</span>
+                            {{edit_client[0].NomprenomsAdmin}}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 mb-30">
+
+            {% if message == 'success' %}
+                <div class="alert alert-success" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <i class="fa fa-check fa-2x" style="font-size: 16"></i> {{ message_success }}
+                </div>
+            {% elseif message == 'echecc' %}
+                <div class="alert alert-danger" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <i class="fa fa-close fa-2x" style="font-size: 16"></i> {{ message_echec }}
+                </div>
+
+            {% elseif message == 'echec' %}
+
+                <div class="alert alert-danger" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <i class="fa fa-close fa-2x" style="font-size: 16"></i> {{ add_noexit }}
+                </div
+
+            {% endif %}
+
+            <div class="card-box height-100-p overflow-hidden">
+                <div class="profile-tab height-100-p">
+                    <div class='container'>
+                        <form method='post' enctype="multipart/form-data">
+                            <br>
+                            <div class="row">
+                                <div class="col-md-6 offset-md-3">
+                                    <div class="mb-6">
+                                        <center>
+                                            <div class="fileupload fileupload-new" data-provides="fileupload">
+                                                <div class="fileupload-new thumbnail"
+                                                     style="width: 200px; height: 180px;">
+                                                    {% if edit_client[0].PhotoClient != 0 %}
+                                                        <img src="/src/files/{{edit_client[0].PhotoClient}}" alt=""/>
+                                                    {% elseif edit_client[0].PhotoClient !=1 %}
+                                                        <img src="/src/files/guest.png" alt=""/>
+                                                    {% endif %}
+                                                </div>
+                                                <div class="fileupload-preview fileupload-exists thumbnail"
+                                                     style="width: 200px; height: 180px; line-height: 20px;"></div>
+                                                <div>
+                                                    <span class="btn btn-file btn-primary"><span class="fileupload-new">Upload image</span><span
+                                                            class="fileupload-exists">Change</span>
+                                                        <input type="file" id="photo" name="photoadmin" value=""
+                                                               accept=".jpg,.png,.jpge,.gif"
+                                                               />
+                                                        <input type="hidden" name="current_image" value="{{edit_client[0].PhotoClient}}" />
+                                                    </span>
+                                                    <a href="#" class="btn btn-danger fileupload-exists"
+                                                       data-dismiss="fileupload">Supprimer</a>
+                                                </div>
+                                            </div>
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type='number' value='{{edit_client[0].IdClient}}' hidden name='id_edit'>
+                            <div class='row'>
+                                <div class='col-12'>
+                                    <div class="form-group">
+                                        <label>Nom & Prénom</label>
+                                        <input class="form-control" value="{{edit_client[0].NomprenomsClient}}" required='required' name='n' pattern="[a-zA-Z\s]+" type="text" placeholder="Entrez le nom svp!">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='row'>
+                                <div class='col-6'>
+                                    <div class="form-group">
+                                        <label>Téléphone</label>
+                                        <input class="form-control" value="{{edit_client[0].PhoneClient}}" required='required' name='tel' pattern="[0-9]+" type="tel" placeholder="Entrez le numéro de téléphone!">
+                                    </div>
+                                </div>
+                                <div class='col-6'>
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        <input class="form-control" value="{{edit_client[0].EmailClient}}" required='required' name='email'  type="email" placeholder="Entrez l'adresse mail!">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='row'>
+                                <div class='col-6'>
+                                    <div class="form-group">
+                                        <label>Résidence</label>
+                                        <input class="form-control" value="{{edit_client[0].ResidenceClient}}" pattern="[a-zA-Z0-9\s]+" name='resid' type="text" placeholder="Entrez le mot de passe!">
+                                    </div>
+                                </div>
+                                <div class='col-6'>
+                                    <div class="form-group">
+                                        <label>Proféssion</label>
+                                        <input class="form-control" value="{{edit_client[0].ProfessionClient}}" pattern="[a-zA-Z0-9\s]+" name='prof' type="text" placeholder="Entrez le mot de passe!">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='row'>
+                                <div class='col-6'>
+                                    <div class="form-group">
+                                        <label for="input-8">Piece d'identite</label>
+                                        <div class="form-group">
+                                            <select required="required" class="form-control form-control-rounded" name="tpiece">
+                                                <option selected value="{{edit_client[0].TypepieceClient}}">{% if edit_client[0].TypepieceClient == 0 %}CARTE NATIONAL D'IDENTITE{% elseif edit_client[0].TypepieceClient == 1 %}PASSEPORT{% endif %}</option>
+                                                <option value="0">Carte Nationale d'identite</option>
+                                                <option value="1">Passeport</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='col-6'>
+                                    <div class="form-group">
+                                        <label>Numéro de la pièce d'identité</label>
+                                        <input class="form-control" name='nump' value="{{edit_client[0].IdentiteClient}}" required='required' pattern="[a-zA-Z0-9\s]+" type="text" placeholder="Entrez le numéro de la pièce d'identité!">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='row'>
+                                <div class='col-6'>
+                                    <div class="form-group">
+                                        <label>Recto</label>
+                                        <input class="form-control"  name='recto' type="file">
+
+                                        <input type="hidden" name="current_recto" value="{{edit_client[0].RectopieceClient}}" />
+                                    </div>
+                                </div>
+                                <div class='col-6'>
+                                    <div class="form-group">
+                                        <label>Verso</label>
+                                        <input class="form-control"  name='verso' value="{{edit_client[0].VersopieceClient}}" type="file">
+
+                                        <input type="hidden" name="current_verso" value="{{edit_client[0].VersopieceClient}}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='row'>
+                                <div class='col-12'>
+                                    <div class="form-group">
+                                        <label>Révenu Mensuel</label>
+                                        <input class="form-control" value="{{edit_client[0].RevenumoyenClient}}" pattern="[0-9]+" name='revm' type="text" placeholder="Entrez le mot de passe!">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" name='modifier' class="btn btn-success btn-lg btn-block"> Enregistrer</button>
+                            <br>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

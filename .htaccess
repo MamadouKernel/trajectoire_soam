@@ -1,0 +1,31 @@
+ErrorDocument 404 /controllers/404.php
+ErrorDocument 500 /controllers/500.php
+ErrorDocument 403 /controllers/403.php
+ErrorDocument 503 /controllers/503.php
+ErrorDocument 400 /controllers/400.php
+<IfModule mod_rewrite.c>
+ # Rewrite personaliser
+
+    Options +FollowSymlinks
+    RewriteEngine on
+
+    # redirect
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^login$ index.php$1 [L]
+    RewriteRule ^dashboard$ controllers/accueil.php$1 [L]
+    RewriteRule ^add_admin$ controllers/add_admin.php$1 [L]
+    RewriteRule ^view_admin$ controllers/view_admin.php$1 [L]
+    RewriteRule ^edit_admin$ controllers/edit_admin.php$1 [L]
+    RewriteRule ^add_creancier$ controllers/add_creancier.php$1 [L]
+    RewriteRule ^view_creancier$ controllers/view_creancier.php$1 [L]
+    RewriteRule ^edit_creancier$ controllers/edit_creancier.php$1 [L]
+    RewriteRule ^type_operation$ controllers/add_ope.php$1 [L]
+    RewriteRule ^edit_operation$ controllers/edit_ope.php$1 [L]
+    RewriteRule ^ask_credit$ controllers/ask_credit.php$1 [L]
+    RewriteRule ^view_ask$ controllers/view_ask.php$1 [L]
+    RewriteRule ^repayment_list$ controllers/list_ask.php$1 [L]
+    RewriteRule ^payment_ask$ controllers/payment_ask.php$1 [L]
+    RewriteRule ^list_emprunt$ controllers/list_emprunt_client.php$1 [L]
+
+</IfModule>

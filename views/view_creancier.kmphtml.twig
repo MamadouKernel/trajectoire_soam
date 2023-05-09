@@ -1,0 +1,71 @@
+{% extends "template.kmphtml.twig" %}
+{% block title %}Liste des Créanciers | Trajectoire{% endblock %}
+{% block contenu %}
+{% block chargement %}{% endblock %}
+
+<!-- Simple Datatable start -->
+<div class="card-box mb-30">
+    <hr>
+    {% if message == 'success' %}
+        <div class="alert alert-success" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+            <i class="fa fa-check fa-2x" style="font-size: 16"></i> {{ message_success }}
+        </div>
+    {% elseif message == 'echec' %}
+        <div class="alert alert-danger" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+            <i class="fa fa-close fa-2x" style="font-size: 16"></i> {{ message_echec }}
+        </div>
+
+    {% endif %}
+    <hr>
+    <div class="pd-20">
+        <h4 class="text-blue h2">Table des Créanciers</h4>
+    </div>
+    <div class="pb-20 table-responsive">
+        <table class="data-table table stripe hover wrap">
+            <thead>
+                <tr>
+                    <th>Nom Prénoms</th>
+                    <th>Email</th>
+                    <th>Pièce Id</th>
+                    <th>N° de la Pièce</th>
+                    <th>Téléphone</th>
+                    <th>Résidence</th>
+                    <th>Proféssion</th>
+                    <th class="datatable-nosort">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for creancier in select_creancier %}
+                    <tr>
+                        <td>{{creancier.NomprenomsClient}}</td>
+                        <td>{{creancier.EmailClient}}</td>
+                        <td>{% if creancier.TypepieceClient == 0 %} CARTE NATIONAL D'IDENTITE {% elseif creancier.TypepieceClient == 1 %} PASSEPORT {% endif %}</td>
+                        <td>{{creancier.IdentiteClient}}</td>
+                        <td>{{creancier.PhoneClient}}</td>
+                        <td>{{creancier.ResidenceClient}}</td>
+                        <td>{{creancier.ProfessionClient}}</td>
+                        <td>
+                            <div class="dropdown">
+                                <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                                    <i class="dw dw-more"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                    <a class="dropdown-item" href="list_emprunt?list={{creancier.IdClient}}"><i class="dw dw-edit2"></i> Borrowing List</a>
+                                    <a class="dropdown-item" href="edit_creancier?edit={{creancier.IdClient}}"><i class="dw dw-edit2"></i> Edit</a>
+                                    <a class="dropdown-item" href="?del={{creancier.IdClient}}"><i class="dw dw-delete-3"></i> Delete</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- Simple Datatable End -->
+
+{% endblock %}

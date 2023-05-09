@@ -1,0 +1,92 @@
+{% extends "template.kmphtml.twig" %}
+{% block title %}Liste des Administrateur et Gestionnaire | Trajectoire{% endblock %}
+{% block contenu %}
+{% block chargement %}{% endblock %}
+    <hr>
+    {% if messages == 'successs' %}
+        <div class="alert alert-success" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+            <i class="fa fa-check fa-2x" style="font-size: 16"></i> {{ message_ask }}
+        </div>
+    {% elseif messages == 'echecc' %}
+        <div class="alert alert-danger" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+            <i class="fa fa-close fa-2x" style="font-size: 16"></i> {{ message_echec_ask }} 
+        </div>
+ 
+    {% elseif messages == 'erreur' %}
+        <div class="alert alert-danger" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+            <i class="fa fa-close fa-2x" style="font-size: 16"></i> {{ message_erreur }} 
+        </div>
+    {% endif %}
+
+       {% if messages == 'solde' %}
+        <div class="alert alert-warning" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+            <i class="fa fa-close text-center fa-2x" style="font-size: 16; font-weight: bold"></i> {{ messages_solde }} 
+        </div>
+        {% endif %}
+    <hr>
+    {#  start remboussement modal #}
+    <div class="card-box height-100-p overflow-hidden">
+        <div class="profile-tab height-100-p">
+            <div class='container'>
+				<div class="modal-header">
+					<h4 class="modal-title" id="myLargeModalLabel">Faire un remboursement</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				</div>
+			    <div class="modal-body">
+	                <form method='post' enctype="multipart/form-data">
+                        <div class='row'>
+                            <div class='col-6'>
+                                <div class="form-group">
+                                    <label>Créancier</label>
+                                    <input class="form-control"  name='creancier' value='{{select_ask[0].NomprenomsClient}}' disabled  type="text">
+                                   <input class="form-control"  name='idcreancier' value='{{select_ask[0].IdClient}}' hidden  type="text">
+                                </div>
+                            </div>
+                            <div class='col-6'>
+                                <div class="form-group">
+                                    <label>Type de Crédit</label>
+                                    <input class="form-control"  value='{{select_ask[0].NomType}}' name='tcredit' disabled  type="text" >
+                                    <input class="form-control"  value='{{select_ask[0].IdType}}' name='idtype' hidden  type="text" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class='col-6'>
+                                <div class="form-group">
+                                    <label>Montant Emprunt</label>
+                                    <input class="form-control"  value='{{select_ask[0].MontantEmprunt}}' name='emprunt' disabled  type="text">
+                                    <input class="form-control"  value='{{select_ask[0].IdEmprunt}}' name='idemprunt'   type="hidden">
+                                </div>
+                            </div>
+                            <div class='col-6'>
+                                <div class="form-group">
+                                    <label>Montant déjà rembourssé</label>
+                                    <input class="form-control"  value='{% if restmont== 0 %} 0 {% elseif restmont != 0 %} {{restmont}} {% endif %}' name='tcredit' disabled  type="text" placeholder="Montant restant">
+                                </div>
+                            </div>
+                        </div>
+                        <div class='row'>
+                            <div class='col-12'>
+                                <div class="form-group">
+                                    <label>Montant à payer</label>
+                                    <input class="form-control"  name='price' pattern="[0-9]+" type="text" placeholder="Entrez le montant à payer!" required>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" name='repayment' class="btn btn-success btn-lg btn-block"> Valider le remboursement</button>
+                    </form>
+                </div>
+			</div>
+		</div>
+	</div>
+    <br>
+{#  end remboussement modal #}
+{% endblock %}

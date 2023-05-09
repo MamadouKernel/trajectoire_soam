@@ -1,0 +1,33 @@
+{# empty Twig template #}
+{% extends "template.kmphtml.twig" %}
+{% block title %}Tableau de Bord | TRAJECTOIRE{% endblock %}
+{% block contenu %}
+    <div class="card-box pd-20 height-100-p mb-30">
+        <div class="row align-items-center">
+            <div class="col-md-4">
+                <img src="public/vendors/images/offre-de-pret.svg" alt="">
+            </div>
+            <div class="col-md-4">
+                <h4 class="font-20 weight-600 text-capitalize">
+                    Bienvenue, <div class="weight-600 font-25 text-justify text-blue">{{log_connect.NomprenomsAdmin}}</div>
+                </h4>
+                <p class="font-16 text-justify max-width-600">Trajactoire est une branche de SOAM(Solidarité Action dans Le Monde) qui est  une association à vocation internationale qui a été créée pour répondre aux aspirations de ses membres qui souscrivent à la déclaration du millénaire adopté par la résolution 55/2 des nations Unies en septembre 2000.</p>
+            </div>
+            <!--date-->
+            <div class="col-md-4 col-sm-12 text-center">
+                <div class="mb-20">
+                    <label style='font-size: 20px; font-weight: bold'><strong>AGENDA <script>document.write(new Date().getFullYear());</script></strong></label>
+                    <div class="datepicker-here" data-timepicker="true" data-language='en'></div>
+                </div>
+            </div>
+            <!--end date-->
+        </div>
+    </div>
+    <div class="card-box pd-20 height-100-p mb-30">
+        <div class="row">
+            <iframe width="100%" height="650" src="https://so-am.org"></iframe>
+        </div>
+    </div>
+    <br>
+
+{% endblock %}
